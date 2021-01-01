@@ -7,4 +7,11 @@ export class Resolvers {
   async allTest(): Promise<Test[]> {
     return await Test.find();
   }
+
+  @Mutation(() => Test)
+  async createTest(@Arg("name") name: string): Promise<Test> {
+    const newTest = Test.create({ name });
+    await newTest.save();
+    return newTest;
+  }
 }
