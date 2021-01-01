@@ -1,21 +1,26 @@
-import express from "express";
-import helmet from "helmet";
-import cors from "cors";
-import compress from "compression";
-import services from "./services";
-const app = express();
-const port = 8080;
+import 'reflect-metadata';
+import { ApolloServer } from 'apollo-server-express';
+import express from 'express';
+import { buildSchema } from 'type-graphql';
 
-app.use(helmet());
-app.use(compress());
-app.use(cors());
+import { init_db } from './database';
+import { Resolvers } from './schema/Resolvers';
 
-services["graphql"].applyMiddleware({app});
+const main = async() => {
+  await init_db();
+  console.log('Database created.');
 
-app.get("/", (req, res) => {
-    res.send( "Hello world!" );
-} );
+  const schema = await buildSchema({
+    resolvers: [ Resolvers ],
+  });
 
-app.listen(port, () => {
-    console.log( `server started at http://localhost:${port}`);
-});
+  const apolloServer = new ApolloServer({ schema });
+  const app = express();
+  apolloServer.applyMiddleware({ app });
+  app.listen(
+    4000,
+    () => console.log(`Server started on http://localhost:4000${apolloServer.graphqlPath}`),
+  );
+};
+
+main();
