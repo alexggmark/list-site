@@ -1,0 +1,13 @@
+query GetTests {
+  allTest {
+    id
+    name
+  }
+}
+
+mutation CreateTest($name: String!) {
+  createTest(name: $name) {
+    id
+    name
+  }
+}
