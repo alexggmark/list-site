@@ -3,6 +3,8 @@
 # dependencies
 /api/node_modules
 /api/dist
+/api/ormconfig.json
+/api_BK
 /client/node_modules
 /client/dist
 /.pnp
