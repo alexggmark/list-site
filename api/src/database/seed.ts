@@ -1,5 +1,5 @@
 import { createConnection } from "typeorm";
-import { Test } from "../models";
+import { Test, Users } from "../models";
 
 export const init_db = async () => {
   const connection = await createConnection();
@@ -17,4 +17,9 @@ export const init_db = async () => {
   const col3 = new Test();
   col3.name = "Test Data 3";
   await col3.save();
+
+  const user1 = new Users();
+  user1.username = "alex";
+  user1.password = "$2y$12$QX.l3YTwbNBfwqfa28ReQ.Ca8xCMvl4ZMQ60u10yjB1y49QK1pH/.";
+  await user1.save();
 }
