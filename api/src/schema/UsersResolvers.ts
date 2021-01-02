@@ -18,6 +18,11 @@ export class UsersResolvers {
     @Arg("password") password: string,
   ): Promise<Users> {
     const hashedPassword = await bcrypt.hash(password, config.passwordHashLength);
+    const userExists = await Users.findOne({ username });
+
+    if (userExists) {
+      throw new Error("Username already exists");
+    }
 
     const newUser = Users.create({ username, password: hashedPassword });
     await newUser.save();
@@ -35,7 +40,7 @@ export class UsersResolvers {
       throw new Error("Could not find user");
     }
 
-    const verify = bcrypt.compare(password, user.password);
+    const verify = await bcrypt.compare(password, user.password);
 
     if (!verify) {
       throw new Error("Passwords don't match");
