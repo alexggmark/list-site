@@ -3,6 +3,7 @@ import { Test } from "../models";
 
 @Resolver()
 export class Resolvers {
+  @Authorized()
   @Query(() => [ Test ])
   async allTest(): Promise<Test[]> {
     return await Test.find();

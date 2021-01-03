@@ -10,9 +10,9 @@ export class Users extends BaseEntity {
 
   @Field(() => String)
   @Column()
-  username!: string;
+  username: string;
 
   @Field(() => String)
   @Column()
-  password!: string;
+  password: string;
 }

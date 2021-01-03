@@ -10,5 +10,5 @@ export class Test extends BaseEntity {
 
   @Field(() => String)
   @Column()
-  name: string = '';
+  name: string;
 }

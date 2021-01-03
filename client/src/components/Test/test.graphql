@@ -11,3 +11,17 @@ mutation CreateTest($name: String!) {
     name
   }
 }
+
+mutation createUsers($username: String!, $password: String!) {
+  createUser(username: $username, password: $password) {
+    id
+    username
+    password
+  }
+}
+
+mutation loginUser($username: String!, $password: String!) {
+  loginUser(username: $username, password: $password) {
+    accessToken
+  }
+}
